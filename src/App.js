@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { robots } from "./robots";
 import CardList from "./CardList";
 import SerachBox from "./SerachBox";
+import "./App.css";
 
 class App extends Component {
   constructor() {
@@ -23,7 +24,7 @@ class App extends Component {
     });
     return (
       <div className="tc">
-        <h1>RoboFreinds</h1>
+        <h1 className="f1">RoboFreinds</h1>
         <SerachBox serachChange={this.onSerachChange} />
         <CardList robots={fliiterRobots} />
       </div>
