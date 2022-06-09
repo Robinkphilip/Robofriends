@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-import { robots } from "./robots";
 import CardList from "./CardList";
 import SerachBox from "./SerachBox";
 import "./App.css";
@@ -9,9 +8,16 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      robots: robots,
+      robots: [],
       serachField: "",
     };
+  }
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((respons) => respons.json())
+      .then((user) => {
+        this.setState({ robots: user });
+      });
   }
   onSerachChange = (event) => {
     this.setState({ serachField: event.target.value });
@@ -22,13 +28,17 @@ class App extends Component {
         .toLowerCase()
         .includes(this.state.serachField.toLowerCase());
     });
-    return (
-      <div className="tc">
-        <h1 className="f1">RoboFreinds</h1>
-        <SerachBox serachChange={this.onSerachChange} />
-        <CardList robots={fliiterRobots} />
-      </div>
-    );
+    if (this.state.robots.length === 0) {
+      return <h1>wait its Loading....</h1>;
+    } else {
+      return (
+        <div className="tc">
+          <h1 className="f1">RoboFreinds</h1>
+          <SerachBox serachChange={this.onSerachChange} />
+          <CardList robots={fliiterRobots} />
+        </div>
+      );
+    }
   }
 }
 
