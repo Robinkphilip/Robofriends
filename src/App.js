@@ -29,7 +29,7 @@ class App extends Component {
         .includes(this.state.serachField.toLowerCase());
     });
     if (this.state.robots.length === 0) {
-      return <h1>wait its Loading....</h1>;
+      return <h1 className="tc">wait its Loading....</h1>;
     } else {
       return (
         <div className="tc">
