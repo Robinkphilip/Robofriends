@@ -1,6 +1,6 @@
 import React from "react";
 
-const SerachBox = ({ serachChange }) => {
+function SerachBox({ serachChange }) {
   return (
     <div className="pa2">
       <input
@@ -11,5 +11,5 @@ const SerachBox = ({ serachChange }) => {
       />
     </div>
   );
-};
+}
 export default SerachBox;

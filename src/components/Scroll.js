@@ -1,6 +1,6 @@
 import React from "react";
 
-const Scroll = (props) => {
+function Scroll(props) {
   return (
     <div
       style={{
@@ -12,5 +12,5 @@ const Scroll = (props) => {
       {props.children}
     </div>
   );
-};
+}
 export default Scroll;

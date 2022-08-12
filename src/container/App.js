@@ -1,45 +1,44 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
-import CardList from "../componets/CardList";
-import SerachBox from "../componets/SerachBox";
+import CardList from "../components/CardList";
+import SerachBox from "../components/SerachBox";
 import "./App.css";
-import Scroll from "../componets/Scroll";
+import Scroll from "../components/Scroll";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      robots: [],
-      serachField: "",
-    };
-  }
-  componentDidMount() {
+function App() {
+  const [robots, setRobots] = useState([]);
+  const [serachField, setSerachField] = useState("");
+  // componentDidMount() {
+  //   fetch("https://jsonplaceholder.typicode.com/users")
+  //     .then((respons) => respons.json())
+  //     .then((user) => {
+  //       this.setState({ robots: user });
+  //     });
+  useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((respons) => respons.json())
       .then((user) => {
-        this.setState({ robots: user });
+        setRobots(user);
       });
-  }
-  onSerachChange = (event) => {
-    this.setState({ serachField: event.target.value });
+  }, []);
+  const onSerachChange = (event) => {
+    setSerachField(event.target.value);
   };
-  render() {
-    const { robots, serachField } = this.state;
-    const fliiterRobots = robots.filter((robot) => {
-      return robot.name.toLowerCase().includes(serachField.toLowerCase());
-    });
-    return !robots.length ? (
-      <h1 className="tc">wait its Loading....</h1>
-    ) : (
-      <div className="tc">
-        <h1 className="f1">RoboFreinds</h1>
-        <SerachBox serachChange={this.onSerachChange} />
-        <Scroll>
-          <CardList robots={fliiterRobots} />
-        </Scroll>
-      </div>
-    );
-  }
+
+  const fliiterRobots = robots.filter((robot) => {
+    return robot.name.toLowerCase().includes(serachField.toLowerCase());
+  });
+  return !robots.length ? (
+    <h1 className="tc">wait its Loading....</h1>
+  ) : (
+    <div className="tc">
+      <h1 className="f1">RoboFreinds</h1>
+      <SerachBox serachChange={onSerachChange} />
+      <Scroll>
+        <CardList robots={fliiterRobots} />
+      </Scroll>
+    </div>
+  );
 }
 
 export default App;
